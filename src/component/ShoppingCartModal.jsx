@@ -4,20 +4,24 @@ import { ItemTable } from "./Table";
 import {  Modal } from "flowbite-react";
 import { useState } from "react";
 
-export function ShoppingCartModal() {
+export function ShoppingCartModal({onClose}) {
+  
   const [openModal, setOpenModal] = useState(true);
+  const handleClick = ()=>{
+    onClose()
+  }
 
   return (
     <>
      
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <div className="bg-[#171923] w-[900px] rounded-md p-5">
-          <h2 className='text-center text-white text-3xl'>Your Carts</h2>
-          <RxCross2 className="text-white inline-block text-right" onClick={() => setOpenModal(false)}/>
+          <RxCross2 className="text-white text-right text-2xl cursor-pointer" onClick={handleClick}/>
+          <h2 className='text-center text-white text-3xl mb-3'>Your Carts</h2>
           
         <div className='flex gap-3'>
           
-           <ItemTable></ItemTable>
+           <ItemTable  ></ItemTable>
           
            <div>
 

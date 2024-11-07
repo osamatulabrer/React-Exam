@@ -6,6 +6,8 @@ import { FaMinus } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
 
 export function ItemTable() {
+  
+  
   return (
     <div className="overflow-x-auto ">
       <Table >
@@ -25,8 +27,8 @@ export function ItemTable() {
               <img className="w-[60px] h-[80px]" src={getImage("../../assets/book_images/1.jpg")} alt="img" />
               <div>
 
-              <h5 className="text-xl font-medium text-white">Once Upon a Time...</h5>
-              <span className="text-base font-light text-white">Comedy/Drama</span>
+              <h5 className="text-xl font-medium text-white">Lorem, ipsum.</h5>
+              <span className="text-base font-light text-white">Lorem, ipsum.</span>
               </div>
             </Table.Cell>
             <Table.Cell>$30</Table.Cell>
