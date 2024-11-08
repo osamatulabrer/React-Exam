@@ -2,14 +2,19 @@ import { useEffect, useState } from "react"
 import Footer from "../component/Footer"
 import Header from "../component/header"
 import Main from "../component/Main/Main"
+import initialBookData from "./data/data"
 
 
 
 
 function Layout(){
+    const [newObj,setNewObj] = useState([ ])
     
-  
     const [theme,setTheme] = useState(false)
+    const [data,setData] = (initialBookData())
+
+   
+    // dark mode changer function
 
     const handleChange = ()=>{
         setTheme(!theme);
@@ -30,8 +35,14 @@ function Layout(){
     },[theme]
         
     )
+     // dark mode changer function
    
-
+    const handleAdd = (obj)=>{
+        setNewObj([
+            ...newObj,
+            obj
+        ])
+    }
     
    
   
@@ -40,8 +51,8 @@ function Layout(){
         <div>
 
         
-            <Header   themeChange={handleChange}/>
-            <Main  />
+            <Header themeChange={handleChange} newObj={newObj}/>
+            <Main onAdditem={handleAdd} />
             <Footer/>
          
       

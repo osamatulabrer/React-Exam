@@ -1,22 +1,24 @@
 import {getImage} from '../../assets/utils/getImage'
 import { FaStar } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa6";
 import { BookDetailModal } from '../BookDetailsModal';
 import { useState } from "react";
 
 
 
-export default function BookCart({item,onAddItem}){
+export default function BookCart({item,onAdditem}){
     const [openModal, setOpenModal] = useState(false);
     const closeModal = ()=>{
         setOpenModal(!openModal)
     }
   
-
+    const handleClick = ()=>{
+        onAdditem(item)
+    }
    
 
     return(
-        <div className="col-span-4 py-4 px-3.5 border border-[#8c8c8c] rounded">
+        <div className="col-span-4 py-4 px-3 border border-[#8c8c8c] rounded">
             <div onClick={()=> setOpenModal(!openModal)}>
                 <img src={getImage(`../../assets/book_images/${item.image}`)} alt="img" />
             </div>
@@ -37,8 +39,8 @@ export default function BookCart({item,onAddItem}){
                 </div>
                     {/* add to cart */}
                 <div className="flex justify-between">
-                    <div className="text-base font-medium bg-[#0dd991] rounded flex justify-center items-center px-3 cursor-pointer"><span>${item.price}</span> | Add to cart </div>
-                    <div className="w-[52px] h-[48px] rounded border border-[#0dd991] flex justify-center items-center cursor-pointer"><FaHeart className="text-base text-[#0dd991]"/></div>
+                    <div onClick={handleClick} className="text-base font-medium bg-[#0dd991] rounded flex justify-center items-center px-3 cursor-pointer"><span>${item.price}</span> | Add to cart </div>
+                    <div className="w-[52px] h-[48px] rounded border border-[#0dd991] flex justify-center items-center cursor-pointer"><FaRegHeart className="text-2xl "/></div>
                 </div>
             </div>
             {openModal && <BookDetailModal   item={item} onClose={closeModal}/>}

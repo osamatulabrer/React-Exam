@@ -9,8 +9,9 @@ import { useState } from "react";
 
 
 
-export default function Main(){
+export default function Main({onAdditem,}){
     const [bookDataFilter,setBookDataFilter] = useState(initialBookData())
+
     
 //  book data filter function
     const sortItemsByName = ()=>{
@@ -27,7 +28,14 @@ export default function Main(){
         
     }
     // conditinal rendering
-
+   
+    const trandingItem = ()=>{
+        
+        let trandingBook = bookDataFilter.filter(item =>{
+            return item.rating > 4
+        })
+        setBookDataFilter(trandingBook)
+    }
     const releaseItem = ()=>{
         
         let releaseBook = bookDataFilter.filter(item =>{
@@ -35,6 +43,7 @@ export default function Main(){
         })
         setBookDataFilter(releaseBook)
     }
+
     const upcommingItem = ()=>{
         
         let upcommingBook = bookDataFilter.filter(item =>{
@@ -42,6 +51,7 @@ export default function Main(){
         })
         setBookDataFilter(upcommingBook)
     }
+ 
 
 
     return(
@@ -51,12 +61,12 @@ export default function Main(){
 
             <div className="grid grid-cols-12">
                 
-                 <LeftSideBer onRelease={releaseItem} onUpcomming={upcommingItem}/>
+                 <LeftSideBer onRelease={releaseItem} onUpcomming={upcommingItem} onTranding={trandingItem}/>
                 
                 <div className="col-span-8 border-x border-[#d9d9d9]">
-                    <div className="grid grid-cols-12 gap-6 mt-10 mb-5 mx-6">
+                    <div className="grid grid-cols-12 gap-4 mt-10 mb-5 mx-6">
                         {bookDataFilter.map(item =>(
-                            <BookCart key={item.id} item={item} ></BookCart>
+                            <BookCart key={item.id} item={item} onAdditem={onAdditem}/>
                         ))}
                         
                     

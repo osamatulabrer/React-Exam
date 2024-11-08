@@ -5,7 +5,7 @@ import {ShoppingCartModal} from './ShoppingCartModal'
 import { useState } from "react";
 
 
-export default function Header({themeChange}){
+export default function Header({themeChange,newObj}){
     
     
     const [openModal, setOpenModal] = useState(false);
@@ -15,7 +15,7 @@ export default function Header({themeChange}){
     const handleChange = ()=>{
         themeChange()
     }
-  
+ 
     return (
        
         <div className="max-w-full mx-auto  p-3 ">
@@ -29,7 +29,8 @@ export default function Header({themeChange}){
 
             </ul>
         </div>
-        {openModal && <ShoppingCartModal  onClose={handleClick}/>}
+      
+        {openModal &&  <ShoppingCartModal  onClose={handleClick} newObj={newObj}/>}
            
         </div>
       

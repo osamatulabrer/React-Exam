@@ -4,13 +4,13 @@ import { ItemTable } from "./Table";
 import {  Modal } from "flowbite-react";
 import { useState } from "react";
 
-export function ShoppingCartModal({onClose}) {
+export function ShoppingCartModal({onClose,newObj}) {
   
   const [openModal, setOpenModal] = useState(true);
   const handleClick = ()=>{
     onClose()
   }
-
+console.log(newObj)
   return (
     <>
      
@@ -21,7 +21,7 @@ export function ShoppingCartModal({onClose}) {
           
         <div className='flex gap-3'>
           
-           <ItemTable  ></ItemTable>
+           <ItemTable newObj={newObj}></ItemTable>
           
            <div>
 
