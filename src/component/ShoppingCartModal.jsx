@@ -4,24 +4,28 @@ import { ItemTable } from "./Table";
 import {  Modal } from "flowbite-react";
 import { useState } from "react";
 
-export function ShoppingCartModal({onClose,newObj}) {
-  
+export function ShoppingCartModal({addItem,modalClose,handleRemoveItem,}) {
+
   const [openModal, setOpenModal] = useState(true);
-  const handleClick = ()=>{
-    onClose()
-  }
-console.log(newObj)
+
+
+
+
+
   return (
     <>
      
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <div className="bg-[#171923] w-[900px] rounded-md p-5">
-          <RxCross2 className="text-white text-right text-2xl cursor-pointer" onClick={handleClick}/>
+          <div className='text-right'>
+
+          <RxCross2 className="text-white text-2xl cursor-pointer" onClick={()=>(modalClose())}/>
+          </div>
           <h2 className='text-center text-white text-3xl mb-3'>Your Carts</h2>
           
         <div className='flex gap-3'>
           
-           <ItemTable newObj={newObj}></ItemTable>
+           <ItemTable addItem={addItem} handleRemoveItem={handleRemoveItem} ></ItemTable>
           
            <div>
 
@@ -33,7 +37,7 @@ console.log(newObj)
                   <span>$600</span>
                 </div>
                 <div className='flex justify-between'>
-                  <span>shopping</span>
+                  <span>shipping</span>
                   <span>free</span>
                 </div>
               
