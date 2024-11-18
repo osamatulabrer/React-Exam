@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useReducer } from "react";
 import Footer from "../component/Footer";
 import Header from "../component/Header";
 import Main from "../component/Main/Main";
 import initialBookData from "../assets/data/data";
+import ItemReducer from "./reducer/Reducer";
+
 
 function Layout() {
-  const [bookData, setBookData] = useState(initialBookData());
+  const [bookData, dispatch] = useReducer(ItemReducer,initialBookData());
   const [originalBookData] = useState(initialBookData());
   const [theme, setTheme] = useState(
     localStorage.getItem("themeMode") === "true"
@@ -13,7 +15,8 @@ function Layout() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [addItem, setAddItem] = useState([]);
   const [show, setShow] = useState(false);
-
+  //useReducer
+  // const [data, dispatch] = useReducer(ItemReducer, initialBookData());
   // Dark mode changer function start
   const handleChange = () => {
     setTheme(!theme);
@@ -31,15 +34,15 @@ function Layout() {
 
   // Gallery sorting function start
   const sortItemsByName = () => {
-    setBookData([...bookData].sort((a, b) => a.name.localeCompare(b.name)));
+    dispatch({ type: "sortByName" });
   };
-
+  
   const sortItemsByRating = () => {
-    setBookData([...bookData].sort((a, b) => b.rating - a.rating));
+    dispatch({ type: "sortByRating"  });
   };
-
+  
   const sortItemsByPrice = () => {
-    setBookData([...bookData].sort((a, b) => a.price - b.price));
+    dispatch({ type: "sortByPrice"  });
   };
   // Gallery sorting function end
 
@@ -73,6 +76,7 @@ function Layout() {
     setIsOpenModal(false);
   };
   // Modal manipulate functions end
+// item add remove in cart function start
 
   const handleAddItem = (item) => {
     setAddItem((prevItems) => {
@@ -87,8 +91,9 @@ function Layout() {
   const handleRemoveItem = (id) => {
     setAddItem((prevItems) => prevItems.filter((item) => item.id !== id));
   };
-
+// item add remove in cart function end
   const modalShow = () => {
+
     if (addItem !== []) {
       setShow(true);
     }
@@ -96,6 +101,7 @@ function Layout() {
   const modalClose = () => {
     setShow(false);
   };
+
 
 
   return (
@@ -123,9 +129,11 @@ function Layout() {
         BookDetailModalClose={closeBookDetailModal}
         isOpenModal={isOpenModal}
         handleAddItem={handleAddItem}
+       
       />
 
       <Footer />
+
     </div>
   );
 }

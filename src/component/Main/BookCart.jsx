@@ -1,60 +1,72 @@
 import { getImage } from "../../assets/utils/getImage";
 import { FaStar } from "react-icons/fa";
 import { IoIosHeart } from "react-icons/io";
-import { BookDetailModal } from "../BookDetailsModal";
+import { BookDetailModal } from "../../assets/modal/BookDetailsModal";
 
-
-export default function BookCart({ item,BookDetailModalClose,BookDetailModalOpen ,isOpenModal,handleAddItem}) {
- 
-
-
+export default function BookCart({
+  item,
+  BookDetailModalClose,
+  BookDetailModalOpen,
+  isOpenModal,
+  handleAddItem,
+}) {
   return (
-    <div className="col-span-12 md:col-span-6 lg:col-span-4 py-4 px-3 rounded border border-[#8c8c8c]">
-      <div onClick={() =>BookDetailModalOpen()} >
-        <img 
+    <div className="col-span-12 sm:col-span-6 lg:col-span-4 py-4 px-3  border border-gray-300 dark:border-gray-600  ">
+      {/* Book Image Section */}
+      <div
+        className="cursor-pointer mb-4  overflow-hidden"
+        onClick={() => BookDetailModalOpen()}
+      >
+        <img
           src={getImage(`../../assets/book_images/${item.image}`)}
-          alt="img"
+          alt={`${item.name} cover`}
+          className="w-full h-64 object-cover  hover:scale-105 transition-transform duration-300 ease-in-out"
         />
       </div>
+
+      {/* Book Details Section */}
       <div>
-        <div className="my-5">
-          <h4 className="text-lg dark:text-white font-medium">{item.name}</h4>
-          <span className="text-md text-[#8c8c8c]">{item.author}</span>
-          <ul className="flex space-x-2.5 pt-2">
-            <li>
-              <FaStar className="text-[#00d991] " />
-            </li>
-            <li>
-              <FaStar className="text-[#00d991] " />
-            </li>
-            <li>
-              <FaStar className="text-[#00d991] " />
-            </li>
-            <li>
-              <FaStar className="text-[#00d991] " />
-            </li>
-            <li>
-              <FaStar className="text-[#00d991] " />
-            </li>
+        <div className="mb-5">
+          <h4 className="text-lg font-medium text-gray-800 dark:text-white truncate">
+            {item.name}
+          </h4>
+          <span className="block text-sm text-gray-500 dark:text-gray-400">
+            {item.author}
+          </span>
+          {/* Rating Section */}
+          <ul className="flex space-x-1 pt-2">
+            {[...Array(5)].map((_, index) => (
+              <li key={index}>
+                <FaStar className="text-[#00d991]" />
+              </li>
+            ))}
           </ul>
         </div>
-        {/* add to cart */}
-        <div className="flex justify-between">
-          <div onClick={() => (handleAddItem(item))}
-           
-            className="text-sm font-medium bg-[#0dd991] rounded flex justify-center items-center px-3 cursor-pointer"
+
+        {/* Add to Cart and Wishlist Section */}
+        <div className="flex justify-between items-center flex-wrap space-y-2">
+          <div
+            onClick={() => handleAddItem(item)}
+            className="text-sm font-medium bg-[#0dd991] text-white rounded flex justify-center items-center px-4 py-4 cursor-pointer hover:bg-[#0bc380] transition"
           >
-            <span>${item.price}</span> | Add to cart
+            <span>${item.price}</span> | Add to Cart
           </div>
           <div
-           
-            className="w-[52px] h-[48px] rounded border border-[#0dd991] flex justify-center items-center cursor-pointer"
+            className="w-12 h-12 rounded-md border border-[#0dd991] flex justify-center items-center cursor-pointer hover:bg-[#0dd991] hover:text-white transition"
           >
-            <IoIosHeart className="text-2xl dark:text-white" />
+            <IoIosHeart className="text-xl" />
           </div>
         </div>
       </div>
-      {isOpenModal && <BookDetailModal item={item} BookDetailModalClose={BookDetailModalClose} />}
+
+      {/* Book Detail Modal */}
+      {isOpenModal && (
+        <BookDetailModal
+          item={item}
+          BookDetailModalClose={BookDetailModalClose}
+          handleAddItem={handleAddItem}
+        />
+      )}
     </div>
   );
 }

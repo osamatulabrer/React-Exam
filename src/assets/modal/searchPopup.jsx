@@ -2,8 +2,8 @@ import { CiSearch } from "react-icons/ci";
 import { TextInput } from "flowbite-react";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useState } from "react";
-import initialBookData from "../assets/data/data";
-import { getImage } from "../assets/utils/getImage";
+import initialBookData from "../data/data";
+import { getImage } from "../utils/getImage";
 
 export default function SearchPopup({ onClose }) {
   const [searchData, setSearchData] = useState("");

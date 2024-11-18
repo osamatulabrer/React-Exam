@@ -1,23 +1,30 @@
 import { getImage } from "../assets/utils/getImage";
-import { FaPlus } from "react-icons/fa";
-import { Table } from "flowbite-react";
-import { FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
-import { useState } from "react";
+import { Table } from "flowbite-react";
 
 
-export function ItemTable({ addItem,handleRemoveItem, }) {
-const[quantity,setQuantity] = useState(1)
+export function ItemTable({ addItem, handleRemoveItem ,handleDecrement,handleIncrement,quantities}) {
+  // const [quantities, setQuantities] = useState(
+  //   addItem.reduce((acc, item) => {
+  //     acc[item.id] = 1; // Initialize all quantities to 1
+  //     return acc;
+  //   }, {})
+  // );
 
+  // const handleIncrement = (id) => {
+  //   setQuantities((prev) => ({
+  //     ...prev,
+  //     [id]: prev[id] + 1,
+  //   }));
+  // };
 
-const handleDecrement = () => {
-  setQuantity((prev) => {
-    if (prev > 1) {
-      return prev - 1;
-    }
-    return prev; // ensure num doesn't go below 1
-  });
-};
+  // const handleDecrement = (id) => {
+  //   setQuantities((prev) => ({
+  //     ...prev,
+  //     [id]: prev[id] > 1 ? prev[id] - 1 : prev[id],
+  //   }));
+  // };
 
   return (
     <div className="overflow-x-auto">
@@ -33,8 +40,8 @@ const handleDecrement = () => {
         </Table.Head>
 
         <Table.Body className="divide-y">
-          {addItem.map((item, index) => (
-            <Table.Row key={index}>
+          {addItem.map((item) => (
+            <Table.Row key={item.id}>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex gap-2">
                 <img
                   className="w-[60px] h-[80px]"
@@ -49,14 +56,23 @@ const handleDecrement = () => {
               <Table.Cell>${item.price}</Table.Cell>
               <Table.Cell>
                 <div className="flex bg-[#595959] gap-2 py-1 px-4 rounded-full items-center">
-                  <FaMinus onClick={()=> (handleDecrement)} className="text-white cursor-pointer" />
-                  <span className="text-white">{quantity}</span>
-                  <FaPlus onClick={()=>(setQuantity(quantity + 1))} className="text-white cursor-pointer" />
+                  <FaMinus
+                    onClick={() => handleDecrement(item.id)}
+                    className="text-white cursor-pointer"
+                  />
+                  <span className="text-white">{quantities[item.id]}</span>
+                  <FaPlus
+                    onClick={() => handleIncrement(item.id)}
+                    className="text-white cursor-pointer"
+                  />
                 </div>
               </Table.Cell>
-              <Table.Cell>${quantity * item.price}</Table.Cell>
+              <Table.Cell>${quantities[item.id] * item.price}</Table.Cell>
               <Table.Cell>
-                <GoTrash className="cursor-pointer" onClick={()=> (handleRemoveItem(item.id))}/>
+                <GoTrash
+                  className="cursor-pointer"
+                  onClick={() => handleRemoveItem(item.id)}
+                />
               </Table.Cell>
             </Table.Row>
           ))}
