@@ -33,7 +33,7 @@ export function ShoppingCartModal({ addItem, modalClose, handleRemoveItem }) {
     addItem.reduce((total, item) => total + item.price * quantities[item.id], 0);
 
   return (
-    <Modal show={openModal} onClose={() => setOpenModal(false)} size="md">
+    <Modal show={openModal} onClose={() => setOpenModal(false)} size="lg">
       <div className="bg-[#171923] rounded-md p-6">
         {/* Modal Header */}
         <div className="flex justify-between items-center mb-4">
